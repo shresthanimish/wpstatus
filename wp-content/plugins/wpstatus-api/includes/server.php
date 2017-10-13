@@ -47,7 +47,7 @@ class WPStatus_Api_Server extends WPStatus_Api {
 
         $response = array(
             'version'=>$wp_version,
-//            'plugins'=>get_plugins(plugin_dir_path()),
+            'plugins'=>get_plugins(),
             'info'=>wp_get_update_data()
         );
         return $response;
