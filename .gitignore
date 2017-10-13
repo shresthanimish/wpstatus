@@ -1,0 +1,56 @@
+# WordPress #
+############
+.htaccess
+wp-config-local.php
+wp-config-staging.php
+wp-content/themes/summit/bower
+wp-content/themes/summit/node_modules
+wp-content/themes/summit/gulp/sync.js
+wp-content/uploads
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+sitemap.xml
+sitemap.xml.gz
+*.log
+wp-content/cache/
+wp-content/backups/
+wp-migrator.php
+
+wp-content/ngg_styles
+wp-content/ngg
+wp-content/gallery
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.bz2
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tgz
+
+# Logs and databases #
+######################
+*.log
+*.sql
+!latest.sql
+
+# OS generated files #
+######################ß
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+._*
+
+# Editor generated files #
+######################
+*.un~
+.idea/
