@@ -6,7 +6,7 @@ class WPStatus_Api_Server extends WPStatus_Api {
     public function setup() {
 
         add_action('rest_api_init', [ $this, 'init_server_api' ]);
-//        $this->init_server_api();
+
     }
 
     public function init_server_api(){

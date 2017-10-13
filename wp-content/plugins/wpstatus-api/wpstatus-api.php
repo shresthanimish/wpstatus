@@ -50,7 +50,7 @@ class WPStatus_Api extends WP_REST_Controller{
 
         try {
             $this->load([
-                'api/server',
+                'server',
 
             ], WPSTATUS_API_PLUGIN_PATH);
         }
