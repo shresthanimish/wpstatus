@@ -3,12 +3,12 @@
  * Plugin Name: WPSTATUS API
  * Plugin URI:  http://www.wpstatus.com.au/
  * Description: Rest Api Extension
- * Version:     1.0.0
- * Author:      wpstatus
+ * Version:     1.0
+ * Author:      Nimish Shrestha
  * Author URI:  http://www.wpstatus.com.au/
  * Donate link: http://www.wpstatus.com.au/
  * License:     GPLv2
- * Text Domain: wpstatus-api
+ * Text Domain: wpstatus
  * Domain Path: /languages
  */
 

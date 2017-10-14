@@ -24,7 +24,7 @@ class WPStatus_Server extends WPStatus {
 
         $response = array(
             'SITE'=>get_site_url(),
-            'WP-ORG'=>$this->wp_org_info(),
+//            'WP-ORG'=>$this->wp_org_info(),
             'PHP'=>PHP_VERSION,
             'MYSQL'=>$this->sql_info(),
             'WP'=>$this->wp_info()

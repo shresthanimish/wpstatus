@@ -11,13 +11,13 @@ Author URI: http://www.wpstatus.com.au/
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) exit;
 
-if ( !class_exists('WPStatus_Base') ):
+if ( !class_exists('APP_Base') ):
 
     /**
-     * Class WPStatus_Base
-     * Base class for Future Transport WPStatus Plugins
+     * Class APP_Base
+     * Base class for Custom Plugins
      */
-    class WPStatus_Base
+    class APP_Base
     {
 
         public function get_current_plugin_name() {
@@ -167,6 +167,20 @@ if ( !class_exists('WPStatus_Base') ):
                 $args = array_replace_recursive($args, $options);
 
             register_taxonomy($key, $post_type, $args);
+
+        }
+
+        protected function create_acf_options_page($redirect=false,$menu_slug,$menu_title,$page_title,$capability='manage_options',$icon_url='dashicons-admin-generic',$position = 80){
+
+            acf_add_options_page(array(
+                'redirect'		=> $redirect,
+                'menu_slug' => $menu_slug,
+                'menu_title' => $menu_title,
+                'page_title' => $page_title,
+                'capability' => $capability,
+                'icon_url' => $icon_url,
+                'position' => $position
+            ));
 
         }
 
