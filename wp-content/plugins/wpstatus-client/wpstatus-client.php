@@ -41,7 +41,6 @@ add_shortcode( 'test_api_connection', 'my_test_api_connection' );
 function my_test_api_connection() {
 
     $url = 'http://wpstatus.local/wp-json/wpstatus/v1/server';
-//    $url = 'http://wpstatus.local/wp-json/myapiplugin/v2/greeting';
 
     //Verification EB2NdL70jqWsNqUwey3c2sJc
 

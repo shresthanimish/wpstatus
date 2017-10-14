@@ -1,6 +1,6 @@
 <?php
 
-class WPStatus_Api_Server extends WPStatus_Api {
+class WPStatus_Server extends WPStatus {
 
 
     public function setup() {
@@ -47,7 +47,8 @@ class WPStatus_Api_Server extends WPStatus_Api {
 
         $response = array(
             'version'=>$wp_version,
-//            'plugins'=>get_plugins(plugin_dir_path()),
+            'plugins'=>get_plugins(),
+            'plugin_update'=>get_site_transient('update_plugins'),
             'info'=>wp_get_update_data()
         );
         return $response;
@@ -61,5 +62,5 @@ class WPStatus_Api_Server extends WPStatus_Api {
     }
 }
 
-$c = new WPStatus_Api_Server();
+$c = new WPStatus_Server();
 $c->setup();

@@ -14,12 +14,12 @@
 
 // https://www.cloudways.com/blog/setup-and-use-oauth-authentication-using-wp-rest-api/
 
-define( 'WPSTATUS_API_PLUGIN_URL', trailingslashit( plugins_url( '', __FILE__ ) ) );
-define( 'WPSTATUS_API_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'WPSTATUS_PLUGIN_URL', trailingslashit( plugins_url( '', __FILE__ ) ) );
+define( 'WPSTATUS_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
-if ( !class_exists('WPStatus_Api') ):
+if ( !class_exists('WPStatus') ):
 
-class WPStatus_Api extends WP_REST_Controller{
+class WPStatus{
     /**
      * BASE API PATH: http://wpstatus.local/wp-json/$api_base/$api_base_version/
      */
@@ -28,23 +28,23 @@ class WPStatus_Api extends WP_REST_Controller{
 
 	public function setup() {
 
-        add_action( 'rest_api_init', [ $this, 'init_routes' ], 1 );
+        try {
+            $this->load([
+                'admin/settings',
+                'server',
+
+            ], WPSTATUS_PLUGIN_PATH);
+        }
+        catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
 
 	}
 
     function init_routes()
     {
 
-        try {
-            $this->load([
-                'admin\options',
-                'server',
 
-            ], WPSTATUS_API_PLUGIN_PATH);
-        }
-        catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
     }
 
     function register_route($params)
@@ -98,12 +98,12 @@ class WPStatus_Api extends WP_REST_Controller{
 
 }//End of class
 
-function wpstatus_api_init() {
-	return WPStatus_Api::instance();
+function wpstatus_init() {
+	return WPStatus::instance();
 }
 
 // Kick it off
-wpstatus_api_init();
+wpstatus_init();
 
 endif;
 
