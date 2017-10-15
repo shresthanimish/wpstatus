@@ -5,6 +5,8 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
     class WPStatus_Hub_Cron extends APP_Base{
 
         protected $shell_exec = false;
+        protected $cron_log_file = '~/projects/wpstatus.local/wp-content/uploads/cron.log';
+        protected $cron_path = '~/projects/wpstatus.local/wp-content/uploads/cron.log';
 
         public function setup() {
 
@@ -14,13 +16,56 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
             add_filter( 'cron_schedules', [$this,'register_additional_schedules'] );
             add_filter('acf/load_field/name=wps_schedule_frequency', [$this,'populate_schedule_frequency']);
 
-            add_filter('acf/load_field', [$this,'current_crontab_schedules']);
+            add_filter('acf/load_field', [$this,'handle_admin_field_info']);
 
             if(!$this->shell_exec){
                 add_filter('acf/load_field', [$this,'enable_read_only']);
                 add_action( 'current_screen', [$this, 'admin_no_shell_exec_notice'] );
             }
-            
+
+            if($this->shell_exec) {
+
+                try {
+                    $this->load([
+//                        'vendor/autoload',
+                        'vendor/class.crontab'
+                    ], WPSTATUS_HUB_PLUGIN_PATH);
+                } catch (Exception $e) {
+                    echo 'Caught exception: ', $e->getMessage(), "\n";
+                }
+
+
+//
+//                $this->add_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir test > '.$this->cron_log_file);
+//                $this->add_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir hello > '.$this->cron_log_file);
+
+                $this->remove_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir test > '.$this->cron_log_file);
+                $this->remove_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir hello > '.$this->cron_log_file);
+
+//                $this->remove_cron_job();
+
+            }
+        }
+
+        function add_cron_job($command=false){
+
+            if(!$command)
+                return;
+
+            $cron = new Crontab();
+            $cron->addJob($command);
+
+        }
+
+        function remove_cron_job($command=false){
+
+            if(!$command)
+                return;
+
+            $cron = new Crontab();
+            $cron->removeJob($command);
+//            $cron->addJob('');
+
         }
 
         function populate_schedule_frequency($field){
@@ -40,13 +85,22 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
 
         }
 
-        function current_crontab_schedules($field){
+        function handle_admin_field_info($field){
 
-            if($field['label'] != 'Cron Job Schedules')
-                return $field;
+            $label = $field['label'];
+            
+            if($field['label'] === 'Cron Job Schedules'){
 
-            $field['instructions'] = $this->requireToVar(WPSTATUS_HUB_PLUGIN_PATH.'/includes/template/message/cron-job-schedules.php');
+                $field['instructions'] = $this->requireToVar(WPSTATUS_HUB_PLUGIN_PATH.'/includes/template/message/cron-job-schedules.php');
 
+            }
+
+            if($field['label'] === 'Register Schedule'){
+
+                $field['instructions'] = $this->requireToVar(WPSTATUS_HUB_PLUGIN_PATH.'/includes/template/register-schedule.php');
+
+            }
+            
             return $field;
 
 
@@ -60,7 +114,11 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
             $fields_to_disable = array(
                 'wps_email',
                 'wps_schedule_frequency',
-                'wps_schedule_time'
+                'wps_schedule_time',
+                'wps_schedule_time_second',
+                'wps_schedule_time_minute',
+                'wps_schedule_time_hour',
+                'wps_schedule_time_day',
             );
 
             if(in_array($field['name'],$fields_to_disable)){
@@ -106,7 +164,35 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
         }
         
         function get_registered_crontabs(){
-            return shell_exec('crontab -l');
+
+            $jobs_list = shell_exec('crontab -l');
+            $jobs = explode(PHP_EOL, $jobs_list);
+
+            if(count($jobs) < 1)
+                return "No cronjobs found for current PHP user.";
+
+            $response = '';
+            foreach($jobs as $job){
+
+                if(trim($job) == '' )
+                    continue;
+
+                $response.="
+                            <div class='acf-tab-group'>
+                                <h4 class=''>
+                                    $job
+                                </h4>
+                                <div>
+                                    <p>Information to be displayed here</p>
+                                </div>
+                                <br/>
+                            </div>
+                            ";
+            }
+
+
+
+            return $response;
         }
 
         function get_registered_schedules( $all=false ){

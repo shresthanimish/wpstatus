@@ -423,9 +423,20 @@ if ( !class_exists('APP_Base') ):
          * @param $includes
          * @param $path
          */
-        public function load($includes, $path){
-            foreach( $includes as $include )
-                include($path . "includes/$include.php");
+        public function load($includes, $path, $include_folder=true){
+
+            foreach( $includes as $include ){
+
+                if($include_folder){
+
+                    include($path . "includes/$include.php");
+                    continue;
+
+                }
+                include($path . "$include.php");
+
+            }
+
         }
 
         /**
