@@ -3,8 +3,43 @@
     "title": "WPStatus Settings",
     "fields": [
         {
-            "key": "field_59e1ef910bbf3",
-            "label": "Cron",
+            "key": "field_59e21178e2909",
+            "label": "Basic",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
+            "key": "field_59e210775735f",
+            "label": "Notification Email",
+            "name": "wps_email",
+            "type": "email",
+            "value": null,
+            "instructions": "Emails will be sent to this address. You can use multiple email addresses separated by comma.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_59e2a4e041e27",
+            "label": "Schedule",
             "name": "",
             "type": "tab",
             "instructions": "",
@@ -19,16 +54,39 @@
             "endpoint": 0
         },
         {
-            "key": "field_59e1ef500bbf2",
-            "label": "Run Time",
-            "name": "wps_run_time",
-            "type": "time_picker",
+            "key": "field_59e2a50041e28",
+            "label": "Frequency",
+            "name": "wps_schedule_frequency",
+            "type": "select",
             "value": null,
-            "instructions": "",
+            "instructions": "Set by WPStatus Hub Plugin",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_59e1ef500bbf2",
+            "label": "Time",
+            "name": "wps_schedule_time",
+            "type": "time_picker",
+            "value": null,
+            "instructions": "A Cron job will run every day at this time.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -53,5 +111,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1507980219
+    "modified": 1508025695
 }

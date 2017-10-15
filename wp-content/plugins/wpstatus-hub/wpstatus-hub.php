@@ -8,7 +8,7 @@
  * Author URI:  http://www.wpstatus.com.au/
  * Donate link: http://www.wpstatus.com.au/
  * License:     GPLv2
- * Text Domain: wpstatus
+ * Text Domain: wpstatus-hub
  * Domain Path: /languages
  */
 
@@ -26,16 +26,16 @@ class WPStatus_Hub extends APP_Base{
 
         add_action('init', [$this,'create_options_pages']);
         add_action( 'acf/settings/load_json', [ $this, 'load_json' ] );
-//        try {
-//            $this->load([
-//                'admin/settings',
-//                'server',
-//
-//            ], WPSTATUS_HUB_PLUGIN_PATH);
-//        }
-//        catch (Exception $e) {
-//            echo 'Caught exception: ',  $e->getMessage(), "\n";
-//        }
+
+        try {
+            $this->load([
+                'cron',
+
+            ], WPSTATUS_HUB_PLUGIN_PATH);
+        }
+        catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
 
         
 	}

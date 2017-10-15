@@ -444,3 +444,162 @@ if ( !class_exists('APP_Base') ):
     }
 
 endif;
+
+
+
+
+if (!function_exists("date_convert")) {
+    /**
+     * Converts dates between timezones
+     *
+     * @param $dt
+     * @param $tz1
+     * @param $df1
+     * @param $tz2
+     * @param $df2
+     * @return string
+     */
+    function date_convert($dt, $tz1, $df1, $tz2, $df2)
+    {
+        // create DateTime object
+        $d = DateTime::createFromFormat($df1, $dt, new DateTimeZone($tz1));
+        // convert timezone
+        if ($d) {
+            $d->setTimeZone(new DateTimeZone($tz2));
+            // convert dateformat
+            return $d->format($df2);
+        }
+        return null;
+    }
+}
+
+if (!function_exists("current_path")) {
+    /**
+     * Used to get the current page URL
+     *
+     * @return string Value of REQUEST_URI
+     */
+    function current_path()
+    {
+        return strtok($_SERVER["REQUEST_URI"], '?');
+    }
+}
+
+if (!function_exists("current_path_processed")) {
+    /**
+     * A stringified version of current_path, can be filtered
+     *
+     * @return string A stringified version of current_path
+     */
+    function current_path_processed()
+    {
+        $path = trim(str_replace("/", "-", current_path()), "-");
+        return apply_filters('current_path_processed', $path);
+    }
+}
+
+if (!function_exists('p')) {
+    /**
+     * Used to print an array out to screen with an optional title
+     *
+     * @param mixed $title
+     * @param mixed $value
+     */
+    function p($title, $value = "NOT_SUPPLIED")
+    {
+        if (defined('WP_CLI') && WP_CLI) {
+            if ($value != "NOT_SUPPLIED")
+                WP_CLI::log(strtoupper($title));
+            print_r($value);
+        } else {
+            if (WP_ENVIRONMENT == 'dev' || WP_ENVIRONMENT == 'staging') {
+                if ($value != "NOT_SUPPLIED") {
+                    echo '<b>' . $title . '</b>:<br />';
+                    echo '<pre>';
+                    print_r($value);
+                    echo '</pre>';
+                } else {
+                    echo '<pre>';
+                    print_r($title);
+                    echo '</pre>';
+                }
+            }
+        }
+    }
+
+}
+
+if (!function_exists('k')) {
+    /**
+     * Used to print a value out to screen with an optional title
+     *
+     * @param mixed $title
+     * @param mixed $value
+     */
+    function k($title, $value = "NOT_SUPPLIED")
+    {
+        if (defined('WP_CLI') && WP_CLI) {
+            if ($value != "NOT_SUPPLIED")
+                WP_CLI::log(strtoupper($title) . ': ' . $value);
+            else
+                WP_CLI::log($value);
+        } else {
+            if (WP_ENVIRONMENT == 'dev' || WP_ENVIRONMENT == 'staging') {
+
+                if ($value != "NOT_SUPPLIED")
+                    echo '<b>' . $title . '</b>:' . $value . '<br />';
+                else
+                    echo $title . '<br />';
+            }
+
+        }
+    }
+
+}
+
+if (!function_exists("starts_with")) {
+    /**
+     * Shortcut for checking if a string starts with another string
+     *
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
+    function starts_with($haystack, $needle)
+    {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
+}
+
+if (!function_exists("ends_with")) {
+    /**
+     * Shortcut for checking if a string ends with another string
+     *
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
+    function ends_with($haystack, $needle)
+    {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($haystack, -$length) === $needle);
+    }
+}
+
+if (!function_exists("random_lipsum")) {
+    /**
+     * Shortcut for generating random lipsum text
+     *
+     * @return string Random lipsum string
+     */
+    function random_lipsum($amount = 1, $what = "words", $start = 0)
+    {
+        return (string)simplexml_load_file("http://www.lipsum.com/feed/xml?amount=$amount&what=$what&start=$start")->lipsum;
+    }
+}
+

@@ -2,6 +2,9 @@
 /** Enable W3 Total Cache */
 define('WP_CACHE', true); // Added by W3 Total Cache
 
+
+define('WP_ENVIRONMENT', 'dev');
+
 /**
  * The base configuration for WordPress
  *
