@@ -8,10 +8,13 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
 
         public function setup() {
 
-//            $this->shell_exec = ($this->is_shell_exec_available())?true:false;
+            //Check if shell exec is available
+            $this->shell_exec = ($this->is_shell_exec_available())?true:false;
 
             add_filter( 'cron_schedules', [$this,'register_additional_schedules'] );
             add_filter('acf/load_field/name=wps_schedule_frequency', [$this,'populate_schedule_frequency']);
+
+            add_filter('acf/load_field', [$this,'current_crontab_schedules']);
 
             if(!$this->shell_exec){
                 add_filter('acf/load_field', [$this,'enable_read_only']);
@@ -37,7 +40,22 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
 
         }
 
+        function current_crontab_schedules($field){
+
+            if($field['label'] != 'Cron Job Schedules')
+                return $field;
+
+            $field['instructions'] = $this->requireToVar(WPSTATUS_HUB_PLUGIN_PATH.'/includes/template/message/cron-job-schedules.php');
+
+            return $field;
+
+
+
+        }
+
         function enable_read_only($field){
+
+            $test = $field;
 
             $fields_to_disable = array(
                 'wps_email',
@@ -60,7 +78,7 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
             if(strpos($currentScreen->id,'wpstatus-hub-settings')){
 
                 $this->load(array(
-                    'template/notice-no-shell-exec'
+                    'template/message/notice-no-shell-exec'
                 ),WPSTATUS_HUB_PLUGIN_PATH);
 
             }
@@ -83,8 +101,12 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
 
         }
 
-        function get_registered_crons(){
+        function get_registered_wp_cron(){
             return get_option( 'cron' );
+        }
+        
+        function get_registered_crontabs(){
+            return shell_exec('crontab -l');
         }
 
         function get_registered_schedules( $all=false ){
@@ -108,6 +130,15 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
             return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
         }
 
+        function requireToVar($file){
+            ob_start();
+            require($file);
+            return ob_get_clean();
+        }
+
+        function sayHi(){
+            return "Helloworld";
+        }
     }//End of class
 
     WPStatus_Hub_Cron::instance();

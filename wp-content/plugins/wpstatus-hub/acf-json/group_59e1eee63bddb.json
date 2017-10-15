@@ -67,7 +67,13 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
+            "choices": {
+                "monthly": "Once a month",
+                "weekly": "Once Weekly",
+                "hourly": "Once Hourly",
+                "twicedaily": "Twice Daily",
+                "daily": "Once Daily"
+            },
             "default_value": [],
             "allow_null": 0,
             "multiple": 0,
@@ -92,6 +98,23 @@
             },
             "display_format": "g:i a",
             "return_format": "g:i a"
+        },
+        {
+            "key": "field_59e2f49390a0e",
+            "label": "Cron Job Schedules",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "new_lines": "br",
+            "esc_html": 0
         }
     ],
     "location": [
@@ -111,5 +134,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1508025695
+    "modified": 1508046082
 }
