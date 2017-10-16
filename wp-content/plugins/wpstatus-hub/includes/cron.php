@@ -10,6 +10,9 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
 
         public function setup() {
 
+
+
+
             //Check if shell exec is available
             $this->shell_exec = ($this->is_shell_exec_available())?true:false;
 
@@ -60,7 +63,22 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
                 //If triggerred through ajax
                 $data = $_POST['wps_schedule'];
 
-                echo json_encode($data);
+                $path = get_field('wps_schedule_path','option');
+
+                //Add Cron
+                $cron = new Crontab();
+                $line = $data['minute'].' '.
+                        $data['hour'].' '.
+                        $data['date'].' '.
+                        $data['day'].' '.
+                        $data['month'].' '.
+                        $path.$data['command'].' '.
+                        '#CRON_NAME';
+
+                $cron->addJob($line);
+
+                //Reply to AJAX call
+                echo json_encode($line);
 
                 wp_die(); //do not run further
 

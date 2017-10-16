@@ -1,21 +1,6 @@
 <hr/>
 <div class="acf-fields">
-
-    <div class="acf-field" style="width: 25%;" data-width="25">
-        <div class="acf-label">
-            <label for="">Second</label>
-            <p class="description">description goes here</p>
-        </div>
-        <div class="acf-input">
-            <div class="acf-input-wrap">
-                <select name="wps_schedule[second]">
-                    <?php for($i=0;$i<=59;$i++): ?>
-                        <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
-        </div>
-    </div>
+    
     <div class="acf-field" style="width: 25%;" data-width="25">
         <div class="acf-label">
             <label for="">Minute</label>
@@ -25,12 +10,17 @@
             <div class="acf-input-wrap">
                 <select name="wps_schedule[minute]">
                     <?php for($i=0;$i<60;$i++): ?>
-                        <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                        <?php if($i==0): ?>
+                            <option value="*">Each Minute</option>
+                        <?php else: ?>
+                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                        <?php endif; ?>
                     <?php endfor; ?>
                 </select>
             </div>
         </div>
-    </div><div class="acf-field" style="width: 25%;" data-width="25">
+    </div>
+    <div class="acf-field" style="width: 25%;" data-width="25">
         <div class="acf-label">
             <label for="">Hour</label>
             <p class="description">description goes here</p>
@@ -39,7 +29,30 @@
             <div class="acf-input-wrap">
                 <select name="wps_schedule[hour]">
                     <?php for($i=0;$i<24;$i++): ?>
-                        <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                        <?php if($i==0): ?>
+                            <option value="*">Each Hour</option>
+                        <?php else: ?>
+                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="acf-field" style="width: 25%;" data-width="25">
+        <div class="acf-label">
+            <label for="">Date</label>
+            <p class="description">description goes here</p>
+        </div>
+        <div class="acf-input">
+            <div class="acf-input-wrap">
+                <select name="wps_schedule[date]">
+                    <?php for($i=0;$i<=31;$i++): ?>
+                        <?php if($i==0): ?>
+                            <option value="*">Each Date</option>
+                        <?php else: ?>
+                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                        <?php endif; ?>
                     <?php endfor; ?>
                 </select>
             </div>
@@ -53,6 +66,7 @@
         <div class="acf-input">
             <div class="acf-input-wrap">
                 <select name="wps_schedule[day]">
+                    <option value="*">Each Day</option>
                     <option value="saturday">Saturday</option>
                     <option value="sunday">Sunday</option>
                     <option value="monday">Monday</option>
@@ -72,6 +86,7 @@
         <div class="acf-input">
             <div class="acf-input-wrap">
                 <select name="wps_schedule[month]">
+                    <option value="*">Each Month</option>
                     <option value="Jan">January</option>
                     <option value="Feb">February</option>
                     <option value="Mar">March</option>

@@ -7,9 +7,9 @@ jQuery(document).ready(function () {
             {
                 'action': 'add_cronjob',
                 'wps_schedule':{
-                    'second'    :jQuery('[name=wps_schedule\\[second\\]]').val(),
                     'minute'    :jQuery('[name=wps_schedule\\[minute\\]]').val(),
                     'hour'      :jQuery('[name=wps_schedule\\[hour\\]]').val(),
+                    'date'    :jQuery('[name=wps_schedule\\[date\\]]').val(),
                     'day'       :jQuery('[name=wps_schedule\\[day\\]]').val(),
                     'month'     :jQuery('[name=wps_schedule\\[month\\]]').val(),
                     'command'   :jQuery('[name=wps_schedule\\[command\\]]').val(),
