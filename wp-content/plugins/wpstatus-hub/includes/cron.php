@@ -17,7 +17,9 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
             add_filter('acf/load_field/name=wps_schedule_frequency', [$this,'populate_schedule_frequency']);
 
             add_filter('acf/load_field', [$this,'handle_admin_field_info']);
-
+            add_action( 'admin_enqueue_scripts', [$this,'admin_script']);
+            add_action( 'wp_ajax_add_cronjob', [$this,'add_cron_job'] );
+            
             if(!$this->shell_exec){
                 add_filter('acf/load_field', [$this,'enable_read_only']);
                 add_action( 'current_screen', [$this, 'admin_no_shell_exec_notice'] );
@@ -39,15 +41,31 @@ if ( !class_exists('WPStatus_Hub_Cron') ):
 //                $this->add_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir test > '.$this->cron_log_file);
 //                $this->add_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir hello > '.$this->cron_log_file);
 
-                $this->remove_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir test > '.$this->cron_log_file);
-                $this->remove_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir hello > '.$this->cron_log_file);
+//                $this->remove_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir test > '.$this->cron_log_file);
+//                $this->remove_cron_job('* * * * * ~/projects/wpstatus.local/wp-content/uploads mkdir hello > '.$this->cron_log_file);
 
 //                $this->remove_cron_job();
 
             }
         }
 
+        function admin_script(){
+            wp_enqueue_script( 'wpstatus_script', WPSTATUS_HUB_PLUGIN_URL. '/includes/js/cron.js' ,  array('jquery'));
+        }
+
         function add_cron_job($command=false){
+
+            if(isset($_POST['wps_schedule_submit']) && $_POST['wps_schedule_submit']){
+
+                //If triggerred through ajax
+                $data = $_POST['wps_schedule'];
+
+                echo json_encode($data);
+
+                wp_die(); //do not run further
+
+            }
+
 
             if(!$command)
                 return;
