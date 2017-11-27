@@ -1,0 +1,26 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<main>
+  <div class="container">
+    <h1>
+      {{title}}
+    </h1>
+    <p>Site description</p>
+    <nav>
+      <div class="nav-wrapper">
+        <a routerLink="#!" class="brand-logo col">
+          <i class="large material-icons">apps</i>
+        </a>
+        <a routerLink="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a routerLink="users">Users</a></li>
+          <li><a routerLink="posts">Posts</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a routerLink="users">Users</a></li>
+          <li><a routerLink="posts">Posts</a></li>
+        </ul>
+      </div>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</main>

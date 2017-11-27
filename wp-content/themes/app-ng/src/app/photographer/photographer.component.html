@@ -1,0 +1,31 @@
+<div class="photographers">
+
+<!--<ul class="collection" data-collapsible="accordion">-->
+<!--<li *ngFor="let photographer of photographers">-->
+  <!--<div class="photographer-{{photographer.post_title}}">-->
+    <!--<i class="material-icons">person</i>-->
+    <!--{{photographer.post_title}}-->
+    <!--<span class="badge">2</span>-->
+  <!--</div>-->
+<!--</li>-->
+<!--</ul>-->
+
+<table class="striped">
+  <thead>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>No of Submissions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let photographer of photographers">
+      <td><input type="checkbox"></td>
+      <td>{{photographer.post_title}}</td>
+      <td>Round 1</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>

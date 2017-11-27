@@ -1,0 +1,4 @@
+.photographers ul li{ margin-left:0;margin-right:0;}
+.photographers ul li.active .collapsible-header{ background: rgba(95,95,95,.25);}
+.photographers ul li.active .collapsible-body{ background: rgba(95,95,95,.15);}
+

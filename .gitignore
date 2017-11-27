@@ -23,6 +23,10 @@ wp-content/ngg_styles
 wp-content/ngg
 wp-content/gallery
 
+# Angular #
+############
+node_modules
+
 # Packages #
 ############
 *.7z
