@@ -3,9 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {PostsComponent} from "./posts/posts.component";
 import {UsersComponent} from "./users/users.component";
+import {SitesComponent} from "./sites/sites.component";
 
 const routes: Routes = [
-  { path: '', component: PostsComponent },
+  { path: '', component: SitesComponent },
+  { path: 'sites', component: SitesComponent },
   { path: 'posts', component: PostsComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UsersComponent },

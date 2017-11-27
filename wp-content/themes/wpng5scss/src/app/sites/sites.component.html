@@ -1,0 +1,31 @@
+<div class="collection">
+  <div class="collection-item">
+    <span class="badge">{{sitesLength}}</span>
+    Sites fetched from WPSTATUS
+  </div>
+</div>
+<div class="row">
+
+  {{sites.SITE}}
+  {{sites.PHP}}
+
+  <!--<div *ngIf="!sites">-->
+    <!--<div class="progress">-->
+      <!--<div class="indeterminate"></div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div *ngFor="let site of sites" class="col s12">-->
+    <!--<div class="card ">-->
+      <!--<div class="collection">-->
+        <!--<div class="collection-item"><span class="badge">{{site.id}}</span>{{site.SITE | uppercase}}</div>-->
+      <!--</div>-->
+      <!--<div class="card-content ">-->
+        <!--<div [innerHTML]="site.body"></div>-->
+      <!--</div>-->
+      <!--<div class="card-action">-->
+        <!--<a href="#" target="_blank">View Article</a>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>
